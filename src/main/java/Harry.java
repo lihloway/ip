@@ -7,18 +7,32 @@ public class Harry {
 
     Harry() {
         Scanner scanner = new Scanner(System.in);
+        String[] data = new String[100];
+        int pointer = 0;
+
+
         say_hello();
         boolean exit = false;
-        String name = "";
+        String item = "";
         while(!exit){
-            name = scanner.nextLine();
-            if (name.equals("bye")){
-                exit = true;
-            }
-            else{
-                print_line();
-                System.out.println("Huh? "+name+"?!");
-                print_line();
+            item = scanner.nextLine();
+            switch (item) {
+                case "list":
+                    print_line();
+                    for (int i = 1; i < pointer + 1; i++){
+                        System.out.println(i + ". " + data[i-1]);
+                    }
+                    print_line();
+                    break;
+                case "bye":
+                    exit = true;
+                    break;
+                default:
+                    print_line();
+                    System.out.println("added: " + item);
+                    data[pointer] = item;
+                    pointer++;
+                    print_line();
             }
         }
         say_goodbye();
