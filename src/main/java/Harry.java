@@ -1,26 +1,57 @@
 import java.util.Scanner;
 
 public class Harry {
+    protected Scanner scanner;
+    protected Task[] data;
+    protected int pointer;
+
     public static void main(String[] args) {
         Harry chatbot = new Harry();
     }
 
     Harry() {
-        Scanner scanner = new Scanner(System.in);
-        String[] data = new String[100];
+        scanner = new Scanner(System.in);
+        data = new Task[100];
         int pointer = 0;
-
-
-        say_hello();
+        String input = "";
         boolean exit = false;
-        String item = "";
+        say_hello();
+
         while(!exit){
-            item = scanner.nextLine();
-            switch (item) {
+            input = scanner.nextLine();
+            String[] parts = input.split(" ");
+            switch (parts[0]) {
+                case "mark":
+                    try {
+                        int item = Integer.parseInt(parts[1]) - 1;
+                        print_line();
+                        data[item].complete();
+                        System.out.println("Nice! I've marked this task as done:\n" + data[item].toString());
+                        print_line();
+                    } catch (NumberFormatException e) {
+                        print_line();
+                        System.out.println("Error: invalid item index given");
+                        print_line();
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        int item = Integer.parseInt(parts[1]) - 1;
+                        print_line();
+                        data[item].uncomplete();
+                        System.out.println("OK, I've marked this task as not done yet:\n" + data[item].toString());
+                        print_line();
+                    } catch (NumberFormatException e) {
+                        print_line();
+                        System.out.println("Error: invalid item index given");
+                        print_line();
+                    }
+                    break;
                 case "list":
                     print_line();
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 1; i < pointer + 1; i++){
-                        System.out.println(i + ". " + data[i-1]);
+                        System.out.println(i + ". " + data[i-1].toString());
                     }
                     print_line();
                     break;
@@ -29,8 +60,8 @@ public class Harry {
                     break;
                 default:
                     print_line();
-                    System.out.println("added: " + item);
-                    data[pointer] = item;
+                    System.out.println("added: " + input);
+                    data[pointer] = new Task(input);
                     pointer++;
                     print_line();
             }
