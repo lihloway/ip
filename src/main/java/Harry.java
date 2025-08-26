@@ -56,9 +56,6 @@ public class Harry {
                     }
                     print_line();
                     break;
-                case "bye":
-                    exit = true;
-                    break;
                 case "todo":
                     print_line();
                     data[pointer] = new ToDo(parts[1]);
@@ -90,7 +87,9 @@ public class Harry {
                     System.out.println("Now you have "+pointer+" tasks in the list.");
                     print_line();
                     break;
-
+                case "bye":
+                    exit = true;
+                    break;
                 default:
                     System.out.println("Error: invalid input");
                     print_line();
