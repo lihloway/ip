@@ -1,18 +1,22 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Harry {
     protected Scanner scanner;
-    protected Task[] data;
-    protected int pointer;
+    protected ArrayList<Task> data;
 
     public static void main(String[] args) {
         Harry chatbot = new Harry();
     }
 
+    @SuppressWarnings("unchecked")
     Harry() {
         scanner = new Scanner(System.in);
-        data = new Task[100];
-        int pointer = 0;
+        data = new ArrayList<>(100);
+        begin_interact();
+    }
+
+    protected void begin_interact() {
         String input = "";
         boolean exit = false;
         say_hello();
@@ -21,7 +25,7 @@ public class Harry {
             input = scanner.nextLine();
             String[] parts = input.split(" ",2);
             String[] arguments;
-            if(pointer == 100){
+            if(data.size() == 100){
                 throw new HarryException("I'm Full");
             }
             switch (parts[0]) {
@@ -29,8 +33,8 @@ public class Harry {
                     try {
                         int item = Integer.parseInt(parts[1]) - 1;
                         print_line();
-                        data[item].complete();
-                        System.out.println("Nice! I've marked this task as done:\n" + data[item].toString());
+                        data.get(item).complete();
+                        System.out.println("Nice! I've marked this task as done:\n" + data.get(item).toString());
                     } catch (NumberFormatException e) {
                         System.out.println("I need a number index");
                     }
@@ -45,13 +49,30 @@ public class Harry {
                     try {
                         int item = Integer.parseInt(parts[1]) - 1;
                         print_line();
-                        data[item].uncomplete();
-                        System.out.println("OK, I've marked this task as not done yet:\n" + data[item].toString());
+                        data.get(item).uncomplete();
+                        System.out.println("OK, I've marked this task as not done yet:\n" +data.get(item).toString());
                     } catch (NumberFormatException e) {
                         System.out.println("I need a number index");
                     }
                     catch (Exception e) {
-                        System.out.println("There's nothing to mark!");
+                        System.out.println("There's nothing to unmark!");
+                    }
+                    finally{
+                        print_line();
+                    }
+                    break;
+                case "delete":
+                    try {
+                        int item = Integer.parseInt(parts[1]) - 1;
+                        print_line();
+                        System.out.println("Noted. I've removed this task:\n" +data.get(item).toString());
+                        data.remove(item);
+                        System.out.println("You have " + data.size() + " tasks remaining.");
+                    } catch (NumberFormatException e) {
+                        System.out.println("I need a number index");
+                    }
+                    catch (Exception e) {
+                        System.out.println("There's nothing to delete!");
                     }
                     finally{
                         print_line();
@@ -60,17 +81,17 @@ public class Harry {
                 case "list":
                     print_line();
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 1; i < pointer + 1; i++){
-                        System.out.println(i + ". " + data[i-1].toString());
+                    for (int index = 1; index < data.size() + 1; index++){
+                        System.out.println(index + ". " + data.get(index -1).toString());
                     }
-                    if (pointer == 0){
+                    if (data.isEmpty()){
                         System.out.println("There's nothing here!");
                     }
                     print_line();
                     break;
                 case "todo":
                     try{
-                        data[pointer] = new ToDo(parts[1]);
+                        data.add(new ToDo(parts[1]));
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("HEY! What are we ToDo??");
                         print_line();
@@ -78,16 +99,15 @@ public class Harry {
                     }
                     print_line();
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(data[pointer].toString());
-                    pointer++;
-                    System.out.println("Now you have "+pointer+" tasks in the list.");
+                    System.out.println(data.get(data.size()-1).toString());
+                    System.out.println("Now you have " + data.size() + " tasks in the list.");
                     print_line();
                     break;
 
                 case "deadline":
                     try{
                         arguments = parts[1].split(" /by ");
-                        data[pointer] = new Deadline(arguments[0],arguments[1]);
+                        data.add(new Deadline(arguments[0],arguments[1]));
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("HEY! What deadline??");
                         print_line();
@@ -95,16 +115,15 @@ public class Harry {
                     }
                     print_line();
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(data[pointer].toString());
-                    pointer++;
-                    System.out.println("Now you have "+pointer+" tasks in the list.");
+                    System.out.println(data.get(data.size()-1).toString());
+                    System.out.println("Now you have " + data.size() + " tasks in the list.");
                     print_line();
                     break;
 
                 case "event":
                     try{
                         arguments = parts[1].split(" /(from |to )");
-                        data[pointer] = new Event(arguments[0],arguments[1],arguments[2]);
+                        data.add(new Event(arguments[0],arguments[1],arguments[2]));
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("HEY! What event??");
                         print_line();
@@ -112,9 +131,8 @@ public class Harry {
                     }
                     print_line();
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(data[pointer].toString());
-                    pointer++;
-                    System.out.println("Now you have "+pointer+" tasks in the list.");
+                    System.out.println(data.get(data.size()-1).toString());
+                    System.out.println("Now you have " + data.size() + " tasks in the list.");
                     print_line();
                     break;
                 case "bye":
