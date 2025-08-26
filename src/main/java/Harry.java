@@ -32,8 +32,8 @@ public class Harry {
                 case "mark":
                     try {
                         int item = Integer.parseInt(parts[1]) - 1;
-                        print_line();
                         data.get(item).complete();
+                        print_line();
                         System.out.println("Nice! I've marked this task as done:\n" + data.get(item).toString());
                     } catch (NumberFormatException e) {
                         System.out.println("I need a number index");
@@ -139,7 +139,7 @@ public class Harry {
                     exit = true;
                     break;
                 default:
-                    System.out.println("I have no clue what you're talking about buddy.");
+                    System.out.println(parts[0] + "? I have no clue what you're talking about buddy.");
                     System.out.println(">:(");
                     print_line();
             }
@@ -164,11 +164,11 @@ public class Harry {
     }
 
     private String get_name() {
-        return " _    _                          \n"
-                + "| |  | |                  @     \n"
-                + "| |__| | ____ ____ ____   _   \n"
-                + "|  __  |/ _  |  __|  __| | |   \n"
-                + "| |  | | (_| | |  | |    | | \n"
-                + "|_|  |_|\\__/_|_|  |_|    |_|  \n";
+        return " _    _\n"
+                + "| |  | |                  @\n"
+                + "| |__| | ____ ____ ____   _\n"
+                + "|  __  |/ _  |  __|  __| | |\n"
+                + "| |  | | (_| | |  | |    | |\n"
+                + "|_|  |_|\\__/_|_|  |_|    |_|\n";
     }
 }
