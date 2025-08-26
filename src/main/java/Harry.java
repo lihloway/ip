@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Harry {
     protected Scanner scanner;
-    protected ArrayList<Task> data;
+    protected ListStorage data;
 
     public static void main(String[] args) {
         Harry chatbot = new Harry();
@@ -13,7 +13,7 @@ public class Harry {
     @SuppressWarnings("unchecked")
     Harry() {
         scanner = new Scanner(System.in);
-        data = new ArrayList<>(100);
+        data = new ListStorage();
     }
 
     protected void begin_interact() {
@@ -25,16 +25,13 @@ public class Harry {
             input = scanner.nextLine();
             String[] parts = input.split(" ",2);
             String[] arguments;
-            if(data.size() == 100){
-                throw new HarryException("I'm Full");
-            }
             switch (parts[0]) {
                 case "mark":
                     try {
                         int item = Integer.parseInt(parts[1]) - 1;
-                        data.get(item).complete();
+                        data.complete(item);
                         print_line();
-                        System.out.println(Response.MARK_SUCCESS.getMessage() + data.get(item).toString());
+                        System.out.println(Response.MARK_SUCCESS.getMessage() + data.print(item));
                     } catch (NumberFormatException e) {
                         System.out.println(Response.NUMBER_FAILURE.getMessage());
                     }
@@ -48,9 +45,9 @@ public class Harry {
                 case "unmark":
                     try {
                         int item = Integer.parseInt(parts[1]) - 1;
+                        data.uncomplete(item);
                         print_line();
-                        data.get(item).uncomplete();
-                        System.out.println(Response.UNMARK_SUCCESS.getMessage() +data.get(item).toString());
+                        System.out.println(Response.UNMARK_SUCCESS.getMessage() + data.print(item));
                     } catch (NumberFormatException e) {
                         System.out.println(Response.NUMBER_FAILURE.getMessage());
                     }
@@ -65,9 +62,9 @@ public class Harry {
                     try {
                         int item = Integer.parseInt(parts[1]) - 1;
                         print_line();
-                        System.out.println(Response.REMOVE_TASK.getMessage() +data.get(item).toString());
+                        System.out.println(Response.REMOVE_TASK.getMessage() + data.print(item));
                         data.remove(item);
-                        System.out.println("You have " + data.size() + " tasks remaining.");
+                        System.out.println("You have " + data.getSize() + " tasks remaining.");
                     } catch (NumberFormatException e) {
                         System.out.println(Response.NUMBER_FAILURE.getMessage());
                     }
@@ -81,10 +78,10 @@ public class Harry {
                 case "list":
                     print_line();
                     System.out.println(Response.LIST_TASKS.getMessage());
-                    for (int index = 1; index < data.size() + 1; index++){
-                        System.out.println(index + ". " + data.get(index -1).toString());
+                    for (int index = 1; index < data.getSize() + 1; index++){
+                        System.out.println(index + ". " + data.print(index - 1));
                     }
-                    if (data.isEmpty()){
+                    if (data.getSize() == 0){
                         System.out.println(Response.LIST_FAILURE.getMessage());
                     }
                     print_line();
@@ -99,8 +96,8 @@ public class Harry {
                     }
                     print_line();
                     System.out.println(Response.TASK_SUCCESS.getMessage());
-                    System.out.println(data.get(data.size()-1).toString());
-                    System.out.println("Now you have " + data.size() + " tasks in the list.");
+                    System.out.println(data.printLast());
+                    System.out.println("Now you have " + data.getSize() + " tasks in the list.");
                     print_line();
                     break;
 
@@ -115,8 +112,8 @@ public class Harry {
                     }
                     print_line();
                     System.out.println(Response.TASK_SUCCESS.getMessage());
-                    System.out.println(data.get(data.size()-1).toString());
-                    System.out.println("Now you have " + data.size() + " tasks in the list.");
+                    System.out.println(data.printLast());
+                    System.out.println("Now you have " + data.getSize() + " tasks in the list.");
                     print_line();
                     break;
 
@@ -131,8 +128,8 @@ public class Harry {
                     }
                     print_line();
                     System.out.println(Response.TASK_SUCCESS.getMessage());
-                    System.out.println(data.get(data.size()-1).toString());
-                    System.out.println("Now you have " + data.size() + " tasks in the list.");
+                    System.out.println(data.printLast());
+                    System.out.println("Now you have " + data.getSize() + " tasks in the list.");
                     print_line();
                     break;
                 case "bye":
