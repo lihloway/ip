@@ -19,7 +19,8 @@ public class Harry {
 
         while(!exit){
             input = scanner.nextLine();
-            String[] parts = input.split(" ");
+            String[] parts = input.split(" ",2);
+            String[] arguments;
             switch (parts[0]) {
                 case "mark":
                     try {
@@ -58,11 +59,40 @@ public class Harry {
                 case "bye":
                     exit = true;
                     break;
-                default:
+                case "todo":
                     print_line();
-                    System.out.println("added: " + input);
-                    data[pointer] = new Task(input);
+                    data[pointer] = new ToDo(parts[1]);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(data[pointer].toString());
                     pointer++;
+                    System.out.println("Now you have "+pointer+" tasks in the list.");
+                    print_line();
+                    break;
+
+                case "deadline":
+                    arguments = parts[1].split(" /by ");
+                    print_line();
+                    data[pointer] = new Deadline(arguments[0],arguments[1]);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(data[pointer].toString());
+                    pointer++;
+                    System.out.println("Now you have "+pointer+" tasks in the list.");
+                    print_line();
+                    break;
+
+                case "event":
+                    arguments = parts[1].split(" /(from |to )");
+                    print_line();
+                    data[pointer] = new Event(arguments[0],arguments[1],arguments[2]);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(data[pointer].toString());
+                    pointer++;
+                    System.out.println("Now you have "+pointer+" tasks in the list.");
+                    print_line();
+                    break;
+
+                default:
+                    System.out.println("Error: invalid input");
                     print_line();
             }
         }
