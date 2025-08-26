@@ -3,12 +3,16 @@ public class ToDo extends Task{
         this.description = description;
         this.isDone = false;
     }
-    public ToDo(String description, boolean isDone){
+    public ToDo(boolean isDone, String description){
         this.description = description;
         this.isDone = isDone;
     }
     @Override
     public String toString(){
         return "[T]" + super.toString();
+    }
+    @Override
+    public String toFile(){
+        return "ToDo||" + (isDone ? "X":"") + "||" + description;
     }
 }
