@@ -7,13 +7,13 @@ public class Harry {
 
     public static void main(String[] args) {
         Harry chatbot = new Harry();
+        chatbot.begin_interact();
     }
 
     @SuppressWarnings("unchecked")
     Harry() {
         scanner = new Scanner(System.in);
         data = new ArrayList<>(100);
-        begin_interact();
     }
 
     protected void begin_interact() {
@@ -34,12 +34,12 @@ public class Harry {
                         int item = Integer.parseInt(parts[1]) - 1;
                         data.get(item).complete();
                         print_line();
-                        System.out.println("Nice! I've marked this task as done:\n" + data.get(item).toString());
+                        System.out.println(Response.MARK_SUCCESS.getMessage() + data.get(item).toString());
                     } catch (NumberFormatException e) {
-                        System.out.println("I need a number index");
+                        System.out.println(Response.NUMBER_FAILURE.getMessage());
                     }
                     catch (Exception e) {
-                        System.out.println("There's nothing to mark!");
+                        System.out.println(Response.MARK_FAILURE.getMessage());
                     }
                     finally{
                         print_line();
@@ -50,12 +50,12 @@ public class Harry {
                         int item = Integer.parseInt(parts[1]) - 1;
                         print_line();
                         data.get(item).uncomplete();
-                        System.out.println("OK, I've marked this task as not done yet:\n" +data.get(item).toString());
+                        System.out.println(Response.UNMARK_SUCCESS.getMessage() +data.get(item).toString());
                     } catch (NumberFormatException e) {
-                        System.out.println("I need a number index");
+                        System.out.println(Response.NUMBER_FAILURE.getMessage());
                     }
                     catch (Exception e) {
-                        System.out.println("There's nothing to unmark!");
+                        System.out.println(Response.UNMARK_FAILURE.getMessage());
                     }
                     finally{
                         print_line();
@@ -65,14 +65,14 @@ public class Harry {
                     try {
                         int item = Integer.parseInt(parts[1]) - 1;
                         print_line();
-                        System.out.println("Noted. I've removed this task:\n" +data.get(item).toString());
+                        System.out.println(Response.REMOVE_TASK.getMessage() +data.get(item).toString());
                         data.remove(item);
                         System.out.println("You have " + data.size() + " tasks remaining.");
                     } catch (NumberFormatException e) {
-                        System.out.println("I need a number index");
+                        System.out.println(Response.NUMBER_FAILURE.getMessage());
                     }
                     catch (Exception e) {
-                        System.out.println("There's nothing to delete!");
+                        System.out.println(Response.DELETE_FAILURE.getMessage());
                     }
                     finally{
                         print_line();
@@ -80,12 +80,12 @@ public class Harry {
                     break;
                 case "list":
                     print_line();
-                    System.out.println("Here are the tasks in your list:");
+                    System.out.println(Response.LIST_TASKS.getMessage());
                     for (int index = 1; index < data.size() + 1; index++){
                         System.out.println(index + ". " + data.get(index -1).toString());
                     }
                     if (data.isEmpty()){
-                        System.out.println("There's nothing here!");
+                        System.out.println(Response.LIST_FAILURE.getMessage());
                     }
                     print_line();
                     break;
@@ -98,7 +98,7 @@ public class Harry {
                         break;
                     }
                     print_line();
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println(Response.TASK_SUCCESS.getMessage());
                     System.out.println(data.get(data.size()-1).toString());
                     System.out.println("Now you have " + data.size() + " tasks in the list.");
                     print_line();
@@ -114,7 +114,7 @@ public class Harry {
                         break;
                     }
                     print_line();
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println(Response.TASK_SUCCESS.getMessage());
                     System.out.println(data.get(data.size()-1).toString());
                     System.out.println("Now you have " + data.size() + " tasks in the list.");
                     print_line();
@@ -130,7 +130,7 @@ public class Harry {
                         break;
                     }
                     print_line();
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println(Response.TASK_SUCCESS.getMessage());
                     System.out.println(data.get(data.size()-1).toString());
                     System.out.println("Now you have " + data.size() + " tasks in the list.");
                     print_line();
