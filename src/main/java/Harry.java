@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Harry {
@@ -10,7 +9,6 @@ public class Harry {
         chatbot.begin_interact();
     }
 
-    @SuppressWarnings("unchecked")
     Harry() {
         scanner = new Scanner(System.in);
         data = new ListStorage();
@@ -25,120 +23,120 @@ public class Harry {
             input = scanner.nextLine();
             String[] parts = input.split(" ",2);
             String[] arguments;
-            switch (parts[0]) {
-                case "mark":
-                    try {
-                        int item = Integer.parseInt(parts[1]) - 1;
-                        data.complete(item);
-                        print_line();
-                        System.out.println(Response.MARK_SUCCESS.getMessage() + data.print(item));
-                    } catch (NumberFormatException e) {
-                        System.out.println(Response.NUMBER_FAILURE.getMessage());
-                    }
-                    catch (Exception e) {
-                        System.out.println(Response.MARK_FAILURE.getMessage());
-                    }
-                    finally{
-                        print_line();
-                    }
-                    break;
-                case "unmark":
-                    try {
-                        int item = Integer.parseInt(parts[1]) - 1;
-                        data.uncomplete(item);
-                        print_line();
-                        System.out.println(Response.UNMARK_SUCCESS.getMessage() + data.print(item));
-                    } catch (NumberFormatException e) {
-                        System.out.println(Response.NUMBER_FAILURE.getMessage());
-                    }
-                    catch (Exception e) {
-                        System.out.println(Response.UNMARK_FAILURE.getMessage());
-                    }
-                    finally{
-                        print_line();
-                    }
-                    break;
-                case "delete":
-                    try {
-                        int item = Integer.parseInt(parts[1]) - 1;
-                        print_line();
-                        System.out.println(Response.REMOVE_TASK.getMessage() + data.print(item));
-                        data.remove(item);
-                        System.out.println("You have " + data.getSize() + " tasks remaining.");
-                    } catch (NumberFormatException e) {
-                        System.out.println(Response.NUMBER_FAILURE.getMessage());
-                    }
-                    catch (Exception e) {
-                        System.out.println(Response.DELETE_FAILURE.getMessage());
-                    }
-                    finally{
-                        print_line();
-                    }
-                    break;
-                case "list":
+        switch (parts[0]) {
+            case "mark":
+                try {
+                    int item = Integer.parseInt(parts[1]) - 1;
+                    data.complete(item);
                     print_line();
-                    System.out.println(Response.LIST_TASKS.getMessage());
-                    for (int index = 1; index < data.getSize() + 1; index++){
-                        System.out.println(index + ". " + data.print(index - 1));
-                    }
-                    if (data.getSize() == 0){
-                        System.out.println(Response.LIST_FAILURE.getMessage());
-                    }
+                    System.out.println(Response.MARK_SUCCESS.getMessage() + data.print(item));
+                } catch (NumberFormatException e) {
+                    System.out.println(Response.NUMBER_FAILURE.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println(Response.MARK_FAILURE.getMessage());
+                }
+                finally{
                     print_line();
-                    break;
-                case "todo":
-                    try{
-                        data.add(new ToDo(parts[1]));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("HEY! What are we ToDo??");
-                        print_line();
-                        break;
-                    }
+                }
+                break;
+            case "unmark":
+                try {
+                    int item = Integer.parseInt(parts[1]) - 1;
+                    data.uncomplete(item);
                     print_line();
-                    System.out.println(Response.TASK_SUCCESS.getMessage());
-                    System.out.println(data.printLast());
-                    System.out.println("Now you have " + data.getSize() + " tasks in the list.");
+                    System.out.println(Response.UNMARK_SUCCESS.getMessage() + data.print(item));
+                } catch (NumberFormatException e) {
+                    System.out.println(Response.NUMBER_FAILURE.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println(Response.UNMARK_FAILURE.getMessage());
+                }
+                finally{
+                    print_line();
+                }
+                break;
+            case "delete":
+                try {
+                    int item = Integer.parseInt(parts[1]) - 1;
+                    print_line();
+                    System.out.println(Response.REMOVE_TASK.getMessage() + data.print(item));
+                    data.remove(item);
+                    System.out.println("You have " + data.getSize() + " tasks remaining.");
+                } catch (NumberFormatException e) {
+                    System.out.println(Response.NUMBER_FAILURE.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println(Response.DELETE_FAILURE.getMessage());
+                }
+                finally{
+                    print_line();
+                }
+                break;
+            case "list":
+                print_line();
+                System.out.println(Response.LIST_TASKS.getMessage());
+                for (int index = 1; index < data.getSize() + 1; index++){
+                    System.out.println(index + ". " + data.print(index - 1));
+                }
+                if (data.getSize() == 0){
+                    System.out.println(Response.LIST_FAILURE.getMessage());
+                }
+                print_line();
+                break;
+            case "todo":
+                try{
+                    data.add(new ToDo(parts[1]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("HEY! What are we ToDo??");
                     print_line();
                     break;
+                }
+                print_line();
+                System.out.println(Response.TASK_SUCCESS.getMessage());
+                System.out.println(data.printLast());
+                System.out.println("Now you have " + data.getSize() + " tasks in the list.");
+                print_line();
+                break;
 
-                case "deadline":
-                    try{
-                        arguments = parts[1].split(" /by ");
-                        data.add(new Deadline(arguments[0],arguments[1]));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("HEY! What deadline??");
-                        print_line();
-                        break;
-                    }
-                    print_line();
-                    System.out.println(Response.TASK_SUCCESS.getMessage());
-                    System.out.println(data.printLast());
-                    System.out.println("Now you have " + data.getSize() + " tasks in the list.");
+            case "deadline":
+                try{
+                    arguments = parts[1].split(" /by ");
+                    data.add(new Deadline(arguments[0],arguments[1]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("HEY! What deadline??");
                     print_line();
                     break;
+                }
+                print_line();
+                System.out.println(Response.TASK_SUCCESS.getMessage());
+                System.out.println(data.printLast());
+                System.out.println("Now you have " + data.getSize() + " tasks in the list.");
+                print_line();
+                break;
 
-                case "event":
-                    try{
-                        arguments = parts[1].split(" /(from |to )");
-                        data.add(new Event(arguments[0],arguments[1],arguments[2]));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("HEY! What event??");
-                        print_line();
-                        break;
-                    }
-                    print_line();
-                    System.out.println(Response.TASK_SUCCESS.getMessage());
-                    System.out.println(data.printLast());
-                    System.out.println("Now you have " + data.getSize() + " tasks in the list.");
+            case "event":
+                try{
+                    arguments = parts[1].split(" /(from |to )");
+                    data.add(new Event(arguments[0],arguments[1],arguments[2]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("HEY! What event??");
                     print_line();
                     break;
-                case "bye":
-                    exit = true;
-                    break;
-                default:
-                    System.out.println(parts[0] + "? I have no clue what you're talking about buddy.");
-                    System.out.println(">:(");
-                    print_line();
+                }
+                print_line();
+                System.out.println(Response.TASK_SUCCESS.getMessage());
+                System.out.println(data.printLast());
+                System.out.println("Now you have " + data.getSize() + " tasks in the list.");
+                print_line();
+                break;
+            case "bye":
+                exit = true;
+                break;
+            default:
+                System.out.println(parts[0] + "? I have no clue what you're talking about buddy.");
+                System.out.println(">:(");
+                print_line();
             }
         }
         say_goodbye();
