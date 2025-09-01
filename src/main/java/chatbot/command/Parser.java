@@ -2,10 +2,11 @@ package chatbot.command;
 
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class Parser {
-    private final Map<String, Consumer<String[]>> commands;
-    public Parser(Map<String, Consumer<String[]>> commands) {
+    private final Map<String, Function<String[], String>> commands;
+    public Parser(Map<String, Function<String[], String>> commands) {
         this.commands = commands;
     }
 
@@ -20,8 +21,8 @@ public class Parser {
      * @return the Consumer representing the command to be executed
      */
 
-    public Consumer<String[]> getCommand(String... input) {
-        Consumer<String[]> command = commands.get(input[0]);
+    public Function<String[], String> getCommand(String... input) {
+        Function<String[], String> command = commands.get(input[0]);
         if (command != null) {
             return command;
         }
