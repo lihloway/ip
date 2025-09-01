@@ -6,8 +6,10 @@ import chatbot.command.Response;
 import chatbot.command.Ui;
 import chatbot.task.Deadline;
 import chatbot.task.Event;
+import chatbot.task.Task;
 import chatbot.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -25,6 +27,7 @@ public class Harry {
             "deadline", this::command_deadline,
             "event", this::command_event,
             "bye", this::command_bye,
+            "find", this::command_find,
             "", this::command_none
     );
 
@@ -180,6 +183,18 @@ public class Harry {
         exit = true;
     }
 
+    private void command_find(String[] input){
+        ArrayList<Task> filteredList = data.filter((Task t) -> t.toString().matches(".*"+input[1]+".*"));
+        print_line();
+        System.out.println(Response.LIST_TASKS.getMessage() + " (filtered)");
+        for (int index = 1; index < filteredList.size() + 1; index++){
+            System.out.println(index + ". " + filteredList.get(index-1).toString());
+        }
+        if (filteredList.isEmpty()){
+            System.out.println(Response.LIST_FAILURE.getMessage());
+        }
+        print_line();
+    }
     private void command_none(String[] input){
         System.out.println(input[0] + "? I have no clue what you're talking about buddy.");
         System.out.println(">:(");
