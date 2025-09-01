@@ -1,3 +1,5 @@
+package chatbot.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -24,6 +26,6 @@ public class Event extends Task{
 
     @Override
     public String toFile(){
-        return "ToDo||" + (isDone ? "X":"") + "||" + description + "||" + start + "||" + end;
+        return "chatbot.task.ToDo||" + (isDone ? "X":"") + "||" + description + "||" + start + "||" + end;
     }
 }

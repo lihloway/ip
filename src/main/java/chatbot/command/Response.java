@@ -1,3 +1,5 @@
+package chatbot.command;
+
 public enum Response {
     MARK_SUCCESS("Nice! I've marked this task as done:\n"),
     UNMARK_SUCCESS("OK, I've marked this task as not done yet:\n"),

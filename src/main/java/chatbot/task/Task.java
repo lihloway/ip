@@ -1,3 +1,5 @@
+package chatbot.task;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -6,9 +8,9 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
     private static final Map<String, Function<String[], Task>> registeredTasks = new HashMap<>(){{
-        put("ToDo", parsed -> new ToDo(parsed[1].equals("X"), parsed[2]));
-        put("Deadline", parsed -> new Deadline(parsed[1].equals("X"), parsed[2], parsed[3]));
-        put("Event", parsed -> new Event(parsed[1].equals("X"), parsed[2], parsed[3], parsed[4]));
+        put("chatbot.task.ToDo", parsed -> new ToDo(parsed[1].equals("X"), parsed[2]));
+        put("chatbot.task.Deadline", parsed -> new Deadline(parsed[1].equals("X"), parsed[2], parsed[3]));
+        put("chatbot.task.Event", parsed -> new Event(parsed[1].equals("X"), parsed[2], parsed[3], parsed[4]));
     }};
 
     public void complete(){
