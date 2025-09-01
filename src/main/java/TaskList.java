@@ -1,30 +1,15 @@
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class TaskList {
     protected ArrayList<Task> data;
+    protected Storage loader;
 
     private static final String FILE_PATH = "data/tasks.txt";
     private static final int MAXIMUM_CAPACITY = 100;
     TaskList() {
-        data = new ArrayList<>(MAXIMUM_CAPACITY);
-        File file = new File(FILE_PATH);
-
-        try {
-            if (!file.exists()) {
-                // If file doesn't currently exist, create it
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                Task t = Task.fromFile(line); // parse back into Task
-                data.add(t);
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        loader = new Storage(FILE_PATH, MAXIMUM_CAPACITY);
+        loader.loadData();
     }
     protected void complete(int index){
         data.get(index).complete();
@@ -53,17 +38,6 @@ public class TaskList {
         }
     }
     private void saveData(){
-        File file = new File(FILE_PATH);
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            for (Task t: data){
-                bw.write(t.toFile());
-                bw.newLine();
-            }
-            bw.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+        loader.saveData(data);
     }
 }

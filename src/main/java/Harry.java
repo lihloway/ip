@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Harry {
-    protected Scanner scanner;
     protected TaskList data;
+    protected Ui userInput;
 
     public static void main(String[] args) {
         Harry chatbot = new Harry();
@@ -10,8 +10,8 @@ public class Harry {
     }
 
     Harry() {
-        scanner = new Scanner(System.in);
         data = new TaskList();
+        userInput = new Ui(System.in);
     }
 
     protected void begin_interact() {
@@ -20,7 +20,7 @@ public class Harry {
         say_hello();
 
         while(!exit){
-            input = scanner.nextLine();
+            input = userInput.readNext();
             String[] parts = input.split(" ",2);
             String[] arguments;
         switch (parts[0]) {
