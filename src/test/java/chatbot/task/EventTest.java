@@ -1,10 +1,13 @@
 package chatbot.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class EventTest {
 
@@ -14,8 +17,8 @@ class EventTest {
 
         assertEquals("Meeting", e.description);
         assertFalse(e.isDone);
-        assertEquals(LocalDate.parse("2025-09-02"), e.start);
-        assertEquals(LocalDate.parse("2025-09-05"), e.end);
+        assertEquals(LocalDate.parse("2025-09-02"), e.getStart());
+        assertEquals(LocalDate.parse("2025-09-05"), e.getEnd());
 
         String expectedString = "[E][ ] Meeting(from: Sep 02 2025 to: Sep 05 2025)";
         assertEquals(expectedString, e.toString());

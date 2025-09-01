@@ -17,7 +17,7 @@ public class Ui {
      *
      * @return the String representing message in the next line
      */
-    public String readNext(){
+    public String readNext() {
         return scanner.nextLine();
     }
 }
