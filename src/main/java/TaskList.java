@@ -1,12 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public class ListStorage {
+public class TaskList {
     protected ArrayList<Task> data;
 
     private static final String FILE_PATH = "data/tasks.txt";
     private static final int MAXIMUM_CAPACITY = 100;
-    ListStorage() {
+    TaskList() {
         data = new ArrayList<>(MAXIMUM_CAPACITY);
         File file = new File(FILE_PATH);
 

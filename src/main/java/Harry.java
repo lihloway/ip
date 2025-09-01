@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Harry {
     protected Scanner scanner;
-    protected ListStorage data;
+    protected TaskList data;
 
     public static void main(String[] args) {
         Harry chatbot = new Harry();
@@ -11,7 +11,7 @@ public class Harry {
 
     Harry() {
         scanner = new Scanner(System.in);
-        data = new ListStorage();
+        data = new TaskList();
     }
 
     protected void begin_interact() {
