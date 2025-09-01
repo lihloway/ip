@@ -1,3 +1,5 @@
+package chatbot.command;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -7,7 +9,7 @@ public class Ui {
         scanner = new Scanner(in);
     }
     
-    protected String readNext(){
+    public String readNext(){
         return scanner.nextLine();
     }
 }

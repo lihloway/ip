@@ -1,3 +1,5 @@
+package chatbot.task;
+
 public class ToDo extends Task{
     public ToDo(String description){
         this.description = description;
@@ -13,6 +15,6 @@ public class ToDo extends Task{
     }
     @Override
     public String toFile(){
-        return "ToDo||" + (isDone ? "X":"") + "||" + description;
+        return "chatbot.task.ToDo||" + (isDone ? "X":"") + "||" + description;
     }
 }

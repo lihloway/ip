@@ -1,3 +1,5 @@
+package chatbot.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -23,6 +25,6 @@ public class Deadline extends Task{
 
     @Override
     public String toFile(){
-        return "ToDo||" + (isDone ? "X":"") + "||" + description + "||" + deadline;
+        return "chatbot.task.ToDo||" + (isDone ? "X":"") + "||" + description + "||" + deadline;
     }
 }

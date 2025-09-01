@@ -1,3 +1,7 @@
+package chatbot.io;
+
+import chatbot.task.Task;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,7 +30,7 @@ public class Storage {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             while ((line = br.readLine()) != null) {
-                Task t = Task.fromFile(line); // parse back into Task
+                Task t = Task.fromFile(line); // parse back into chatbot.task.Task
                 data.add(t);
             }
         } catch (IOException e){

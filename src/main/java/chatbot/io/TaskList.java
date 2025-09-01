@@ -1,4 +1,8 @@
-import java.io.File;
+package chatbot.io;
+
+import chatbot.exception.HarryException;
+import chatbot.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -7,30 +11,30 @@ public class TaskList {
 
     private static final String FILE_PATH = "data/tasks.txt";
     private static final int MAXIMUM_CAPACITY = 100;
-    TaskList() {
+    public TaskList() {
         loader = new Storage(FILE_PATH, MAXIMUM_CAPACITY);
         data = loader.loadData();
     }
-    protected void complete(int index){
+    public void complete(int index){
         data.get(index).complete();
     }
-    protected void uncomplete(int index){
+    public void uncomplete(int index){
         data.get(index).uncomplete();
     }
-    protected String print(int index){
+    public String print(int index){
         return data.get(index).toString();
     }
-    protected String printLast(){
+    public String printLast(){
         return data.get(data.size()-1).toString();
     }
-    protected void remove(int index){
+    public void remove(int index){
         data.remove(index);
         saveData();
     }
-    protected int getSize(){
+    public int getSize(){
         return data.size();
     }
-    protected void add(Task t){
+    public void add(Task t){
         data.add(t);
         saveData();
         if(data.size() == 100){

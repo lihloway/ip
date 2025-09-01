@@ -1,4 +1,13 @@
-import java.util.HashMap;
+package chatbot;
+
+import chatbot.io.TaskList;
+import chatbot.command.Parser;
+import chatbot.command.Response;
+import chatbot.command.Ui;
+import chatbot.task.Deadline;
+import chatbot.task.Event;
+import chatbot.task.ToDo;
+
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -123,7 +132,7 @@ public class Harry {
         try{
             data.add(new ToDo(input[1]));
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("HEY! What are we ToDo??");
+            System.out.println("HEY! What are we chatbot.task.ToDo??");
             print_line();
             return;
         }
