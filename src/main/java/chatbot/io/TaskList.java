@@ -4,6 +4,9 @@ import chatbot.exception.HarryException;
 import chatbot.task.Task;
 
 import java.util.ArrayList;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class TaskList {
     protected ArrayList<Task> data;
@@ -40,6 +43,11 @@ public class TaskList {
         if(data.size() == 100){
             throw new HarryException("I'm Full");
         }
+    }
+    public ArrayList<Task> filter(Predicate<? super Task> predicate) {
+        return data.stream()
+                .filter(predicate)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
     private void saveData(){
         loader.saveData(data);
