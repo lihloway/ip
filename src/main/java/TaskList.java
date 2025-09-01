@@ -9,7 +9,7 @@ public class TaskList {
     private static final int MAXIMUM_CAPACITY = 100;
     TaskList() {
         loader = new Storage(FILE_PATH, MAXIMUM_CAPACITY);
-        loader.loadData();
+        data = loader.loadData();
     }
     protected void complete(int index){
         data.get(index).complete();

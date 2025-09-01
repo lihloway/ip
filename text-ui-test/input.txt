@@ -14,4 +14,7 @@ event e
 mark 26
 mark
 unmark
+list
+delete 2
+delete 1
 bye
