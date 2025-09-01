@@ -39,7 +39,7 @@ public class Harry {
         parser = new Parser(commands);
     }
 
-    protected void begin_interact() {
+    private void begin_interact() {
         String input = "";
         exit = false;
         say_hello();
