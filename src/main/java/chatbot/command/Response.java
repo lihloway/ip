@@ -16,6 +16,15 @@ public enum Response {
     Response(String message){
         this.message = message;
     }
+
+    /**
+     * Returns the string message tied to this response
+     *
+     * This method returns the string message that is defined as the message's response
+     * Use this method like this Response.NUMBER_FAILURE.getMessage()
+     *
+     * @return the String representing message
+     */
     public String getMessage(){
         return this.message;
     }
