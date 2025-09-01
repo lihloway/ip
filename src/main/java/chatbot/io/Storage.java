@@ -1,7 +1,5 @@
 package chatbot.io;
 
-import chatbot.task.Task;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,9 +8,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import chatbot.task.Task;
+
+/**
+ * Allows for persistent storage of chatbot tasks to and from a file.
+ * Loads and saves data from the specified file.
+ */
 public class Storage {
-    File file;
-    int max;
+    private final File file;
+    private final int max;
     Storage(String filepath, int max) {
         this.file = new File(filepath);
         this.max = max;
@@ -27,7 +31,7 @@ public class Storage {
      *
      * @return ArrayList containing list of tasks
      */
-    protected ArrayList<Task> loadData(){
+    protected ArrayList<Task> loadData() {
 
         ArrayList<Task> data = new ArrayList<>(max);
 
@@ -43,7 +47,7 @@ public class Storage {
                 Task t = Task.fromFile(line);
                 data.add(t);
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return data;
@@ -57,16 +61,15 @@ public class Storage {
      *
      * @param data ArrayList of tasks to be saved
      */
-    protected void saveData(ArrayList<Task> data){
+    protected void saveData(ArrayList<Task> data) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            for (Task t: data){
+            for (Task t: data) {
                 bw.write(t.toFile());
                 bw.newLine();
             }
             bw.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -1,23 +1,23 @@
 package chatbot;
 
-import chatbot.io.TaskList;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Consumer;
+
 import chatbot.command.Parser;
 import chatbot.command.Response;
 import chatbot.command.Ui;
+import chatbot.io.TaskList;
 import chatbot.task.Deadline;
 import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.ToDo;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.function.Consumer;
-
 public class Harry {
     protected TaskList data;
     protected Ui userInput;
     protected Parser parser;
-    boolean exit = false;
+    private boolean isExit = false;
     private final Map<String, Consumer<String[]>> commands = Map.of(
             "mark", this::command_mark,
             "unmark", this::command_unmark,
@@ -31,25 +31,25 @@ public class Harry {
             "", this::command_none
     );
 
-    public static void main(String[] args) {
-        Harry chatbot = new Harry();
-        chatbot.begin_interact();
-    }
-
     Harry() {
         data = new TaskList();
         userInput = new Ui(System.in);
         parser = new Parser(commands);
     }
 
+    public static void main(String[] args) {
+        Harry chatbot = new Harry();
+        chatbot.begin_interact();
+    }
+
     private void begin_interact() {
         String input = "";
-        exit = false;
+        isExit = false;
         say_hello();
 
-        while(!exit){
+        while (!isExit) {
             input = userInput.readNext();
-            String[] parts = input.split(" ",2);
+            String[] parts = input.split(" ", 2);
             parser.getCommand(parts[0]).accept(parts);
         }
         say_goodbye();
@@ -67,7 +67,7 @@ public class Harry {
         print_line();
     }
 
-    private void command_mark(String[] input){
+    private void command_mark(String[] input) {
         try {
             int item = Integer.parseInt(input[1]) - 1;
             data.complete(item);
@@ -75,16 +75,14 @@ public class Harry {
             System.out.println(Response.MARK_SUCCESS.getMessage() + data.print(item));
         } catch (NumberFormatException e) {
             System.out.println(Response.NUMBER_FAILURE.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(Response.MARK_FAILURE.getMessage());
-        }
-        finally{
+        } finally {
             print_line();
         }
     }
 
-    private void command_unmark(String[] input){
+    private void command_unmark(String[] input) {
         try {
             int item = Integer.parseInt(input[1]) - 1;
             data.uncomplete(item);
@@ -92,16 +90,14 @@ public class Harry {
             System.out.println(Response.UNMARK_SUCCESS.getMessage() + data.print(item));
         } catch (NumberFormatException e) {
             System.out.println(Response.NUMBER_FAILURE.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(Response.UNMARK_FAILURE.getMessage());
-        }
-        finally{
+        } finally {
             print_line();
         }
     }
 
-    private void command_delete(String[] input){
+    private void command_delete(String[] input) {
         try {
             int item = Integer.parseInt(input[1]) - 1;
             print_line();
@@ -110,29 +106,27 @@ public class Harry {
             System.out.println("You have " + data.getSize() + " tasks remaining.");
         } catch (NumberFormatException e) {
             System.out.println(Response.NUMBER_FAILURE.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(Response.DELETE_FAILURE.getMessage());
-        }
-        finally{
+        } finally {
             print_line();
         }
     }
 
-    private void command_list(String[] input){
+    private void command_list(String[] input) {
         print_line();
         System.out.println(Response.LIST_TASKS.getMessage());
-        for (int index = 1; index < data.getSize() + 1; index++){
+        for (int index = 1; index < data.getSize() + 1; index++) {
             System.out.println(index + ". " + data.print(index - 1));
         }
-        if (data.getSize() == 0){
+        if (data.getSize() == 0) {
             System.out.println(Response.LIST_FAILURE.getMessage());
         }
         print_line();
     }
 
-    private void command_todo(String[] input){
-        try{
+    private void command_todo(String[] input) {
+        try {
             data.add(new ToDo(input[1]));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("HEY! What are we chatbot.task.ToDo??");
@@ -146,10 +140,10 @@ public class Harry {
         print_line();
     }
 
-    private void command_deadline(String[] input){
-        try{
+    private void command_deadline(String[] input) {
+        try {
             String[] arguments = input[1].split(" /by ");
-            data.add(new Deadline(arguments[0],arguments[1]));
+            data.add(new Deadline(arguments[0], arguments[1]));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("HEY! What deadline??");
             print_line();
@@ -163,10 +157,10 @@ public class Harry {
 
     }
 
-    private void command_event(String[] input){
-        try{
+    private void command_event(String[] input) {
+        try {
             String[] arguments = input[1].split(" /(from |to )");
-            data.add(new Event(arguments[0],arguments[1],arguments[2]));
+            data.add(new Event(arguments[0], arguments[1], arguments[2]));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("HEY! What event??");
             print_line();
@@ -179,23 +173,23 @@ public class Harry {
         print_line();
     }
 
-    private void command_bye(String[] input){
-        exit = true;
+    private void command_bye(String[] input) {
+        isExit = true;
     }
 
-    private void command_find(String[] input){
-        ArrayList<Task> filteredList = data.filter((Task t) -> t.toString().matches(".*"+input[1]+".*"));
+    private void command_find(String[] input) {
+        ArrayList<Task> filteredList = data.filter((Task t) -> t.toString().matches(".*" + input[1] + ".*"));
         print_line();
         System.out.println(Response.LIST_TASKS.getMessage() + " (filtered)");
-        for (int index = 1; index < filteredList.size() + 1; index++){
-            System.out.println(index + ". " + filteredList.get(index-1).toString());
+        for (int index = 1; index < filteredList.size() + 1; index++) {
+            System.out.println(index + ". " + filteredList.get(index - 1).toString());
         }
-        if (filteredList.isEmpty()){
+        if (filteredList.isEmpty()) {
             System.out.println(Response.LIST_FAILURE.getMessage());
         }
         print_line();
     }
-    private void command_none(String[] input){
+    private void command_none(String[] input) {
         System.out.println(input[0] + "? I have no clue what you're talking about buddy.");
         System.out.println(">:(");
         print_line();

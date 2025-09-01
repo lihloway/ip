@@ -17,13 +17,12 @@ public class Parser {
      * the command mapped to the empty string ("").
      *
      * @param input the input string representing the command
-     * @return the Consumer<String[]> representing the command to be executed
-     *
+     * @return the Consumer representing the command to be executed
      */
 
-    public Consumer<String[]> getCommand(String input){
+    public Consumer<String[]> getCommand(String input) {
         Consumer<String[]> command = commands.get(input);
-        if (command != null){
+        if (command != null) {
             return command;
         }
         return commands.get("");

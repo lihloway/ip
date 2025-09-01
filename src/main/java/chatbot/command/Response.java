@@ -13,7 +13,7 @@ public enum Response {
     REMOVE_TASK("Noted. I've removed this task:\n");
 
     private final String message;
-    Response(String message){
+    Response(String message) {
         this.message = message;
     }
 
@@ -25,7 +25,7 @@ public enum Response {
      *
      * @return the String representing message
      */
-    public String getMessage(){
+    public String getMessage() {
         return this.message;
     }
 }
