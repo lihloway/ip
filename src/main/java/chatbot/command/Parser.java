@@ -20,8 +20,8 @@ public class Parser {
      * @return the Consumer representing the command to be executed
      */
 
-    public Consumer<String[]> getCommand(String input) {
-        Consumer<String[]> command = commands.get(input);
+    public Consumer<String[]> getCommand(String... input) {
+        Consumer<String[]> command = commands.get(input[0]);
         if (command != null) {
             return command;
         }

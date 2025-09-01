@@ -50,7 +50,7 @@ public class Harry {
         while (!isExit) {
             input = userInput.readNext();
             String[] parts = input.split(" ", 2);
-            parser.getCommand(parts[0]).accept(parts);
+            parser.getCommand(parts).accept(parts);
         }
         say_goodbye();
     }
