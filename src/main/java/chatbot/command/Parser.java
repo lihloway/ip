@@ -1,7 +1,6 @@
 package chatbot.command;
 
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class Parser {
