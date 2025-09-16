@@ -27,17 +27,18 @@ public class Harry {
     protected Ui userInput;
     protected Parser parser;
     private boolean isExit = false;
-    private final Map<String, Function<String[], String>> commands = Map.of(
-            "mark", this::commandMark,
-            "unmark", this::commandUnmark,
-            "delete", this::commandDelete,
-            "list", this::commandList,
-            "todo", this::commandTodo,
-            "deadline", this::commandDeadline,
-            "event", this::commandEvent,
-            "bye", this::commandBye,
-            "find", this::commandFind,
-            "", this::commandNone
+    private final Map<String, Function<String[], String>> commands = Map.ofEntries(
+            Map.entry("mark", this::commandMark),
+            Map.entry("unmark", this::commandUnmark),
+            Map.entry("delete", this::commandDelete),
+            Map.entry("list", this::commandList),
+            Map.entry("todo", this::commandTodo),
+            Map.entry("deadline", this::commandDeadline),
+            Map.entry("event", this::commandEvent),
+            Map.entry("bye", this::commandBye),
+            Map.entry("find", this::commandFind),
+            Map.entry("snooze", this::commandSnooze),
+            Map.entry("", this::commandNone)
     );
 
     public Harry() {
@@ -200,6 +201,24 @@ public class Harry {
         }
         return response.append(getLine()).toString();
     }
+
+    private String commandSnooze(String[] input) {
+        StringBuilder response = new StringBuilder();
+        try {
+            int item = Integer.parseInt(input[1]) - 1;
+            response.append(getLine());
+            data.snooze(item);
+            response.append(Response.SNOOZE_SUCCESS.getMessage()).append(data.print(item)).append("\n");
+        } catch (NumberFormatException e) {
+            response.append(Response.NUMBER_FAILURE.getMessage()).append("\n");
+        } catch (Exception e) {
+            response.append(Response.SNOOZE_FAILURE.getMessage()).append("\n");
+        } finally {
+            response.append(getLine());
+        }
+        return response.toString();
+    }
+
     private String commandNone(String[] input) {
         return input[0] + "? I have no clue what you're talking about buddy." + "\n"
                 + ">:(" + "\n"

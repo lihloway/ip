@@ -40,6 +40,16 @@ public class TaskList {
     }
 
     /**
+     * Snoozes the task, increasing deadline by 1 day
+     *
+     * @param index the index of the task to snooze
+     */
+    public void snooze(int index) {
+        data.get(index).snooze();
+        saveData();
+    }
+
+    /**
      * Returns the string representation of the task at the specified index.
      *
      * @param index the index of the task

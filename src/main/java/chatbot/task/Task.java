@@ -23,6 +23,9 @@ public abstract class Task {
         isDone = false;
     }
 
+    public void snooze() {
+    }
+
     public void change_completion() {
         isDone = !isDone;
     }

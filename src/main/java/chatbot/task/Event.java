@@ -19,6 +19,12 @@ public class Event extends Task {
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
+
+    @Override
+    public void snooze() {
+        end = end.plusDays(1);
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
