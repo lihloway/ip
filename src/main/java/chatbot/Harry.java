@@ -37,6 +37,10 @@ public class Harry {
         parser = new Parser(commands);
     }
 
+    public boolean getExit() {
+        return isExit;
+    }
+
     public static void main(String[] args) {
         Harry chatbot = new Harry();
         chatbot.begin_interact();
@@ -50,7 +54,9 @@ public class Harry {
 
     public String getResponse(String input) {
         String[] parts = input.split(" ", 2);
+        assert !isExit : "isExit should still be false";
         String response = parser.getCommand(parts).apply(parts);
+        assert response != null : "Response should never be null";
         return response;
     }
 
