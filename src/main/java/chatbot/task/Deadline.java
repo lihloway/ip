@@ -25,6 +25,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public void snooze() {
+        deadline = deadline.plusDays(1);
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + "(by: " + deadline.format(formatter) + ")";
 

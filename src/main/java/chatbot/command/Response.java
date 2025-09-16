@@ -10,7 +10,9 @@ public enum Response {
     DELETE_FAILURE("There's nothing to delete!"),
     LIST_FAILURE("There's nothing to list!"),
     LIST_TASKS("Here are the tasks in your list:"),
-    REMOVE_TASK("Noted. I've removed this task:\n");
+    REMOVE_TASK("Noted. I've removed this task:\n"),
+    SNOOZE_SUCCESS("Sure! I've snoozed this task:\n"),
+    SNOOZE_FAILURE("There's nothing to snooze!");
 
     private final String message;
     Response(String message) {
