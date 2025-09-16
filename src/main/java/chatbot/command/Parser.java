@@ -3,6 +3,11 @@ package chatbot.command;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Parses user input and delegates execution to the appropriate command.
+ * The {@code Parser} uses a mapping of command keywords to their
+ * corresponding handler functions.
+ */
 public class Parser {
     private final Map<String, Function<String[], String>> commands;
     public Parser(Map<String, Function<String[], String>> commands) {

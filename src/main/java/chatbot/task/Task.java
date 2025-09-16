@@ -3,7 +3,16 @@ package chatbot.task;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
+/**
+ * Represents an abstract task in the Harry chatbot application.
+ * A {@code Task} has a description and a completion status, and
+ * may include additional attributes depending on the specific subclass
+ * (e.g., {@link ToDo}, {@link Deadline}, {@link Event}).
+ * <p>
+ * The {@code Task} class also provides factory logic via
+ * {@link #fromFile(String)} to reconstruct tasks from their
+ * serialized representation.
+ */
 public abstract class Task {
     private static final Map<String, Function<String[], Task>> registeredTasks = new HashMap<>() {
         {
@@ -33,7 +42,16 @@ public abstract class Task {
     public boolean isDone() {
         return this.isDone;
     }
-
+    /**
+     * Reconstructs a {@code Task} from its serialized file representation.
+     * <p>
+     * The serialized format is expected to be a string with fields
+     * separated by {@code "||"}, where the first field identifies the
+     * task type by its fully qualified class name.
+     *
+     * @param line The serialized representation of the task
+     * @return The reconstructed {@code Task} object
+     */
     public static Task fromFile(String line) {
         String[] parsed = line.split("\\|\\|");
         return registeredTasks.get(parsed[0]).apply(parsed);

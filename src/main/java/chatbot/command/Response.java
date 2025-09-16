@@ -1,5 +1,9 @@
 package chatbot.command;
-
+/**
+ * Represents the possible response messages used by the Harry chatbot.
+ * Each {@code Response} constant corresponds to a specific outcome
+ * of a user command, such as success, failure, or status updates.
+ */
 public enum Response {
     MARK_SUCCESS("Nice! I've marked this task as done:\n"),
     UNMARK_SUCCESS("OK, I've marked this task as not done yet:\n"),

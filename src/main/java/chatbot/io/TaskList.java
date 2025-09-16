@@ -6,14 +6,22 @@ import java.util.stream.Collectors;
 
 import chatbot.exception.HarryException;
 import chatbot.task.Task;
-
+/**
+ * Represents a list of tasks managed by the Harry chatbot.
+ * <p>
+ * The {@code TaskList} class provides methods to add, remove,
+ * update, snooze, and filter tasks, while automatically persisting
+ * changes to disk through the {@link Storage} component.
+ */
 public class TaskList {
     private static final String FILE_PATH = "data/tasks.txt";
     private static final int MAXIMUM_CAPACITY = 100;
 
     protected ArrayList<Task> data;
     protected Storage loader;
-
+    /**
+     * Constructs a {@code TaskList} by loading tasks from storage.
+     */
     public TaskList() {
         loader = new Storage(FILE_PATH, MAXIMUM_CAPACITY);
         data = loader.loadData();
