@@ -54,10 +54,10 @@ public class Storage {
     }
 
     /**
-     * Save the data into the filepath
+     * Saves the data into the filepath
      *
-     * This method converts each Task into a line of text to be saved into the filepath
-     * and saves them all into the file to be loaded later
+     * Each Task is converted into a line of text to be saved into the filepath,
+     * so that the data can be loaded later.
      *
      * @param data ArrayList of tasks to be saved
      */

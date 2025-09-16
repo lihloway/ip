@@ -13,6 +13,15 @@ import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.ToDo;
 
+/**
+ * Represents the main chatbot logic and command handler for Harry.
+ *
+ * The {@code Harry} class manages tasks using a {@link TaskList}, processes user
+ * commands via a {@link Parser}, and interacts with the user through {@link Ui}.
+ * It supports operations such as adding, marking, unmarking, deleting,
+ * listing, and finding tasks. The chatbot maintains an {@code isExit} flag
+ * to indicate when the session should end.
+ */
 public class Harry {
     protected TaskList data;
     protected Ui userInput;
