@@ -41,10 +41,26 @@ public class Harry {
             Map.entry("", this::commandNone)
     );
 
+    /**
+     * Creates a new instance of {@code Harry}.
+     * Initializes the task list, user interface, and parser
+     * with the available commands.
+     */
     public Harry() {
         data = new TaskList();
         userInput = new Ui(System.in);
         parser = new Parser(commands);
+    }
+
+    /**
+     * Begins the interaction with the user.
+     * Resets the exit flag and displays the welcome message.
+     * This method is typically called at the start of the program.
+     */
+    public void begin_interact() {
+        String input = "";
+        isExit = false;
+        sayHello();
     }
 
     public boolean getExit() {
@@ -56,11 +72,6 @@ public class Harry {
         chatbot.begin_interact();
     }
 
-    public void begin_interact() {
-        String input = "";
-        isExit = false;
-        sayHello();
-    }
 
     public String getResponse(String input) {
         String[] parts = input.split(" ", 2);

@@ -3,6 +3,12 @@ package chatbot.command;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+ * Handles user input for the Harry chatbot.
+ * <p>
+ * The {@code Ui} class is responsible for reading user commands
+ * from an input stream (typically {@code System.in}).
+ */
 public class Ui {
     protected Scanner scanner;
     public Ui(InputStream in) {

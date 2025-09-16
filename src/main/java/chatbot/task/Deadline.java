@@ -12,12 +12,27 @@ public class Deadline extends Task {
     private LocalDate deadline;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Creates a new {@code Deadline} task with the given description
+     * and deadline date. The task is initialized as not done.
+     *
+     * @param description Description of the deadline task
+     * @param deadline Deadline date in ISO-8601 format (yyyy-MM-dd)
+     */
     public Deadline(String description, String deadline) {
         this.description = description;
         this.isDone = false;
         this.deadline = LocalDate.parse(deadline);
     }
 
+    /**
+     * Creates a new {@code Deadline} task with the given completion
+     * status, description, and deadline date.
+     *
+     * @param isDone {@code true} if the task is completed, {@code false} otherwise
+     * @param description Description of the deadline task
+     * @param deadline Deadline date in ISO-8601 format (yyyy-MM-dd)
+     */
     public Deadline(boolean isDone, String description, String deadline) {
         this.description = description;
         this.isDone = isDone;
